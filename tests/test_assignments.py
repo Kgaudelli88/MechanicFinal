@@ -60,6 +60,7 @@ class TestAssignments(unittest.TestCase):
 
     def test_get_assignments(self):
         response = self.app.get('/service-tickets/mechanic-service-ticket/')
+        print('Get assignments response:', response.status_code, response.get_json())
         self.assertEqual(response.status_code, 200)
         self.assertIsInstance(response.get_json(), list)
 

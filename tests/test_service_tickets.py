@@ -25,6 +25,7 @@ class TestServiceTickets(unittest.TestCase):
             'year': 2020,
             'customer_id': 1
         })
+        print('Create service ticket response:', response.status_code, response.get_json())
         self.assertEqual(response.status_code, 201)
         self.assertIn('id', response.get_json())
 
@@ -41,6 +42,7 @@ class TestServiceTickets(unittest.TestCase):
 
     def test_get_service_tickets(self):
         response = self.app.get('/service-tickets/')
+        print('Get service tickets response:', response.status_code, response.get_json())
         self.assertEqual(response.status_code, 200)
         self.assertIn('service_tickets', response.get_json())
 

@@ -29,4 +29,14 @@ def create_app():
     app.register_blueprint(mechanic_bp, url_prefix='/mechanics')
     app.register_blueprint(service_ticket_bp, url_prefix='/service-tickets')
     app.register_blueprint(customer_bp, url_prefix='/customers')
+    # Add detailed error handler for debugging in CI
+    @app.errorhandler(Exception)
+    def handle_exception(e):
+        import traceback
+        response = {
+            'message': 'Internal server error',
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }
+        return response, 500
     return app
