@@ -38,6 +38,8 @@ jobs:
             sleep 2
           done
           mysql -h 127.0.0.1 -uroot -pTrinity2010 -e 'SHOW DATABASES;'
+      - name: List app directory
+        run: ls app
       - name: Initialize database tables
         run: python create_tables.py
       - name: Run tests
