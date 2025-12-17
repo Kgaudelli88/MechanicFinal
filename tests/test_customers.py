@@ -9,12 +9,15 @@ class TestCustomers(unittest.TestCase):
         self.app = create_app().test_client()
 
     def test_register_customer(self):
+        import time
+        unique_email = f"testuser_{int(time.time() * 1000)}@mail.com"
         response = self.app.post('/customers/', json={
             'name': 'Test User',
-            'email': 'testuser@mail.com',
+            'email': unique_email,
             'password': 'password123',
             'phone': '123-456-7890'
         })
+        print('DEBUG register_customer response:', response.status_code, response.get_json())
         self.assertEqual(response.status_code, 201)
         self.assertIn('id', response.get_json())
 

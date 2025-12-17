@@ -1,3 +1,4 @@
+
 from functools import wraps
 from flask import Blueprint, request, jsonify
 from jose import jwt
@@ -10,6 +11,7 @@ from app.extensions import limiter
 
 SECRET_KEY = 'your_secret_key'  # Use the same key as in your app
 ALGORITHM = 'HS256'
+
 
 customer_bp = Blueprint('customer', __name__)
 
@@ -66,7 +68,8 @@ def create_customer():
     customer = Customer(email=data['email'], password=data['password'], name=data['name'], phone=data['phone'])
     db.session.add(customer)
     db.session.commit()
-    return jsonify(schema.dump(customer)), 201
+    return jsonify(CustomerSchema().dump(customer)), 201
+
 
 # Get all customers (paginated)
 @customer_bp.route('/', methods=['GET'])
@@ -110,6 +113,7 @@ def update_customer(id):
         customer.phone = data['phone']
     db.session.commit()
     return jsonify(schema.dump(customer))
+
 
 # Delete a customer by ID (restricted to logged-in customer)
 @customer_bp.route('/me', methods=['DELETE'])

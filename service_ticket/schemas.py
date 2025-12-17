@@ -3,9 +3,9 @@ from .models import ServiceTicket
 from marshmallow import fields
 
 class ServiceTicketSchema(SQLAlchemyAutoSchema):
-	class Meta:
-		model = ServiceTicket
-		load_instance = True
-	year = fields.Integer(required=False, allow_none=True)
-	make = fields.String(required=False, allow_none=True)
-	model = fields.String(required=False, allow_none=True)
+    class Meta:
+        model = ServiceTicket
+        load_instance = True
+    year = fields.Integer(required=False, allow_none=True)
+    make = fields.String(required=False, allow_none=True)
+    model = fields.String(required=False, allow_none=True)

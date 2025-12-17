@@ -28,14 +28,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CustomerPayload'
+              $ref: "#/components/schemas/CustomerPayload"
       responses:
-        '201':
+        "201":
           description: Customer created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerResponse'
+                $ref: "#/components/schemas/CustomerResponse"
               example:
                 id: 1
                 name: Jordan
@@ -46,7 +46,7 @@ paths:
       summary: Get all customers
       description: Returns a paginated list of customers
       responses:
-        '200':
+        "200":
           description: List of customers
           content:
             application/json:
@@ -56,7 +56,7 @@ paths:
                   customers:
                     type: array
                     items:
-                      $ref: '#/components/schemas/CustomerResponse'
+                      $ref: "#/components/schemas/CustomerResponse"
                   total:
                     type: integer
                   page:
@@ -74,9 +74,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LoginPayload'
+              $ref: "#/components/schemas/LoginPayload"
       responses:
-        '200':
+        "200":
           description: JWT token
           content:
             application/json:
@@ -98,20 +98,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ServiceTicketPayload'
+              $ref: "#/components/schemas/ServiceTicketPayload"
       responses:
-        '201':
+        "201":
           description: Service ticket created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServiceTicketResponse'
+                $ref: "#/components/schemas/ServiceTicketResponse"
     get:
       tags: [ServiceTickets]
       summary: Get all service tickets
       description: Returns a paginated list of service tickets
       responses:
-        '200':
+        "200":
           description: List of service tickets
           content:
             application/json:
@@ -121,7 +121,7 @@ paths:
                   service_tickets:
                     type: array
                     items:
-                      $ref: '#/components/schemas/ServiceTicketResponse'
+                      $ref: "#/components/schemas/ServiceTicketResponse"
                   total:
                     type: integer
                   page:
@@ -139,9 +139,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AssignmentPayload'
+              $ref: "#/components/schemas/AssignmentPayload"
       responses:
-        '201':
+        "201":
           description: Assignment created
           content:
             application/json:
@@ -157,14 +157,14 @@ paths:
       summary: Get all assignments
       description: Returns all mechanic-service ticket assignments
       responses:
-        '200':
+        "200":
           description: List of assignments
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/AssignmentResponse'
+                  $ref: "#/components/schemas/AssignmentResponse"
 
 components:
   schemas:

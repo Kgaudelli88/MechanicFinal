@@ -2,6 +2,7 @@ import logging
 from flask import request
 
 def setup_logging(app):
+    # Removed duplicate import
     handler = logging.StreamHandler()
     handler.setLevel(logging.INFO)
     formatter = logging.Formatter('[%(asctime)s] %(levelname)s in %(module)s: %(message)s')
@@ -17,3 +18,13 @@ def setup_logging(app):
     def log_error(e):
         app.logger.error(f"Error: {str(e)}", exc_info=True)
         return {'message': 'Internal server error'}, 500
+
+
+
+
+
+
+
+
+
+

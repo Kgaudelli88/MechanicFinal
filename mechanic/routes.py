@@ -1,4 +1,5 @@
 
+
 from . import mechanic_bp
 from flask import jsonify
 from app.db import db
@@ -151,4 +152,4 @@ def delete_mechanic(id):
     mechanic = Mechanic.query.get_or_404(id)
     db.session.delete(mechanic)
     db.session.commit()
-    return jsonify({'message': 'Mechanic deleted'}), 200
+

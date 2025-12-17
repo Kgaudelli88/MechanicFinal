@@ -1,6 +1,4 @@
-# Ensure Customer is imported for relationship resolution
 from models.customer import Customer
-
 from app.db import db
 
 mechanic_service_ticket = db.Table(
@@ -10,7 +8,6 @@ mechanic_service_ticket = db.Table(
     db.Column('status', db.String(50), nullable=False, default='open'),
     extend_existing=True
 )
-
 
 class ServiceTicket(db.Model):
     __tablename__ = "service_tickets"
@@ -24,3 +21,4 @@ class ServiceTicket(db.Model):
     customer_id = db.Column(db.Integer, db.ForeignKey("customer.id"), nullable=False)
     customer = db.relationship("Customer", back_populates="service_tickets")
     mechanics = db.relationship("Mechanic", secondary=mechanic_service_ticket, back_populates="service_tickets")
+

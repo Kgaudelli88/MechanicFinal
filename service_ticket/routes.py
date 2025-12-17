@@ -1,4 +1,3 @@
-
 from app.utils import error_response
 from . import service_ticket_bp
 from app.db import db
@@ -9,6 +8,24 @@ def get_mechanic_service_tickets():
     result = db.session.execute(sql)
     assignments = [dict(row._mapping) for row in result]
     return jsonify(assignments), 200
+
+
+from flask import request, jsonify
+from . import service_ticket_bp
+from .models import ServiceTicket
+from app.db import db
+
+
+
+
+
+
+
+
+# Create a new Service Ticket
+
+from .schemas import ServiceTicketSchema
+
 
 @service_ticket_bp.route('/mechanic-service-ticket/', methods=['POST'])
 def assign_mechanic_to_ticket():
