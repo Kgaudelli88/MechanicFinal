@@ -21,7 +21,10 @@ except ImportError:
 
 def get_config():
     config_name = os.environ.get('APP_CONFIG', 'DevelopmentConfig')
-    from app.config import DevelopmentConfig, TestingConfig, ProductionConfig
+    try:
+        from app.config import DevelopmentConfig, TestingConfig, ProductionConfig
+    except ImportError:
+        from config import DevelopmentConfig, TestingConfig, ProductionConfig
     configs = {
         'DevelopmentConfig': DevelopmentConfig,
         'TestingConfig': TestingConfig,
