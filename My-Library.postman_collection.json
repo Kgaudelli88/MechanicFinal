@@ -1,0 +1,710 @@
+{
+	"info": {
+		"_postman_id": "e6a75441-5845-4e9d-9840-d35eb3722dc7",
+		"name": "My-Library",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48331733",
+		"_collection_link": "https://kgaudelli88-8389769.postman.co/workspace/Kelvin-Gaudelli's-Workspace~645de0f6-224a-4bdb-8ab0-1135a2fb6c58/collection/48331733-e6a75441-5845-4e9d-9840-d35eb3722dc7?action=share&source=collection_link&creator=48331733"
+	},
+	"item": [
+		{
+			"name": "Mechanic",
+			"item": [
+				{
+					"name": "Get All Mechanics",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\": \"Jose\",\r\n\"specialty\": \"transmission repair\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/mechanics",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"mechanics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Mechanic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// ============================================",
+									"// COMPREHENSIVE DEBUGGING SCRIPT",
+									"// ============================================",
+									"",
+									"// ============================================",
+									"// 1. LOG DETAILED REQUEST INFORMATION",
+									"// ============================================",
+									"console.log(\"========== REQUEST DETAILS ==========\");",
+									"console.log(\"Request URL:\", pm.request.url.toString());",
+									"console.log(\"Request Method:\", pm.request.method);",
+									"console.log(\"Request Timestamp:\", new Date().toISOString());",
+									"",
+									"// Log all request headers",
+									"console.log(\"\\n--- Request Headers ---\");",
+									"pm.request.headers.each((header) => {",
+									"    console.log(`  ${header.key}: ${header.value}`);",
+									"});",
+									"",
+									"// Log request body",
+									"console.log(\"\\n--- Request Body ---\");",
+									"try {",
+									"    const requestBody = pm.request.body ? pm.request.body.raw : \"No body\";",
+									"    console.log(\"Raw Body:\", requestBody);",
+									"    if (requestBody && requestBody !== \"No body\") {",
+									"        const parsedBody = JSON.parse(requestBody);",
+									"        console.log(\"Parsed Body:\", JSON.stringify(parsedBody, null, 2));",
+									"    }",
+									"} catch (e) {",
+									"    console.log(\"Could not parse request body:\", e.message);",
+									"}",
+									"",
+									"// ============================================",
+									"// 2. LOG FULL RESPONSE DETAILS",
+									"// ============================================",
+									"console.log(\"\\n========== RESPONSE DETAILS ==========\");",
+									"console.log(\"Response Status Code:\", pm.response.code);",
+									"console.log(\"Response Status Text:\", pm.response.status);",
+									"console.log(\"Response Time:\", pm.response.responseTime + \"ms\");",
+									"console.log(\"Response Size:\", pm.response.responseSize + \" bytes\");",
+									"",
+									"// Log all response headers",
+									"console.log(\"\\n--- Response Headers ---\");",
+									"pm.response.headers.each((header) => {",
+									"    console.log(`  ${header.key}: ${header.value}`);",
+									"});",
+									"",
+									"// Log response body",
+									"console.log(\"\\n--- Response Body ---\");",
+									"let jsonData;",
+									"try {",
+									"    jsonData = pm.response.json();",
+									"    console.log(\"Parsed JSON Response:\", JSON.stringify(jsonData, null, 2));",
+									"} catch (e) {",
+									"    console.log(\"Response is not valid JSON\");",
+									"    console.log(\"Raw Response Text:\", pm.response.text());",
+									"    jsonData = null;",
+									"}",
+									"",
+									"// ============================================",
+									"// 3. CAPTURE AND LOG ERROR DETAILS FOR 500 ERRORS",
+									"// ============================================",
+									"if (pm.response.code >= 500) {",
+									"    console.log(\"\\n========== SERVER ERROR DETECTED ==========\");",
+									"    console.log(\"⚠️ Server returned a 5xx error!\");",
+									"    console.log(\"Error Code:\", pm.response.code);",
+									"    ",
+									"    pm.test(\"Capture server error details\", function () {",
+									"        if (jsonData) {",
+									"            // Log all properties of the error response",
+									"            console.log(\"Error Response Properties:\");",
+									"            Object.keys(jsonData).forEach(key => {",
+									"                console.log(`  ${key}:`, JSON.stringify(jsonData[key]));",
+									"            });",
+									"            ",
+									"            // Check for common error message fields",
+									"            const errorMessage = jsonData.message || jsonData.error || jsonData.detail || jsonData.msg || \"No error message provided\";",
+									"            console.log(\"Error Message:\", errorMessage);",
+									"            ",
+									"            // Check for stack trace or additional debug info",
+									"            if (jsonData.stack) {",
+									"                console.log(\"Stack Trace:\", jsonData.stack);",
+									"            }",
+									"            if (jsonData.traceback) {",
+									"                console.log(\"Traceback:\", jsonData.traceback);",
+									"            }",
+									"            if (jsonData.details) {",
+									"                console.log(\"Additional Details:\", JSON.stringify(jsonData.details));",
+									"            }",
+									"            ",
+									"            // Store error info in environment for further debugging",
+									"            pm.collectionVariables.set(\"last_error_code\", pm.response.code);",
+									"            pm.collectionVariables.set(\"last_error_message\", errorMessage);",
+									"            pm.collectionVariables.set(\"last_error_timestamp\", new Date().toISOString());",
+									"            ",
+									"            pm.expect(true).to.be.true; // Pass the test but capture the info",
+									"        } else {",
+									"            console.log(\"No JSON body in error response\");",
+									"            console.log(\"Raw error response:\", pm.response.text());",
+									"            pm.expect(true).to.be.true;",
+									"        }",
+									"    });",
+									"    ",
+									"    // Debugging suggestions",
+									"    console.log(\"\\n========== DEBUGGING SUGGESTIONS ==========\");",
+									"    console.log(\"1. Check server logs for detailed error stack trace\");",
+									"    console.log(\"2. Verify database connection is active\");",
+									"    console.log(\"3. Check if the 'customers' table/collection exists\");",
+									"    console.log(\"4. Verify the email 'leroy@example.com' doesn't already exist (unique constraint)\");",
+									"    console.log(\"5. Check if all required fields are being processed correctly\");",
+									"    console.log(\"6. Verify server-side validation rules\");",
+									"}",
+									"",
+									"// ============================================",
+									"// 4. CONDITIONAL VALIDATION TESTS",
+									"// ============================================",
+									"",
+									"// Test for server availability (not a 5xx error)",
+									"pm.test(\"Server is responding without errors (no 5xx)\", function () {",
+									"    if (pm.response.code >= 500) {",
+									"        console.log(\"⚠️ FAILED: Server returned \" + pm.response.code + \" error\");",
+									"        console.log(\"This indicates a server-side issue, not a client request problem\");",
+									"    }",
+									"    pm.expect(pm.response.code).to.be.below(500);",
+									"});",
+									"",
+									"// Only run success tests if we got a successful response",
+									"if (pm.response.code >= 200 && pm.response.code < 300) {",
+									"    console.log(\"\\n========== SUCCESS VALIDATION ==========\");",
+									"    ",
+									"    pm.test(\"Status code is 201 Created\", function () {",
+									"        pm.response.to.have.status(201);",
+									"    });",
+									"",
+									"    pm.test(\"Response has valid JSON body\", function () {",
+									"        pm.response.to.be.json;",
+									"    });",
+									"",
+									"    if (jsonData) {",
+									"        pm.test(\"Response contains customer ID\", function () {",
+									"            const hasId = jsonData.hasOwnProperty(\"id\") || jsonData.hasOwnProperty(\"customer_id\");",
+									"            pm.expect(hasId, \"Response should contain 'id' or 'customer_id'\").to.be.true;",
+									"            if (hasId) {",
+									"                console.log(\"Customer ID:\", jsonData.id || jsonData.customer_id);",
+									"            }",
+									"        });",
+									"        ",
+									"        pm.test(\"Response contains customer name\", function () {",
+									"            pm.expect(jsonData).to.have.property(\"name\");",
+									"            console.log(\"Customer Name:\", jsonData.name);",
+									"        });",
+									"        ",
+									"        pm.test(\"Response contains customer email\", function () {",
+									"            pm.expect(jsonData).to.have.property(\"email\");",
+									"            console.log(\"Customer Email:\", jsonData.email);",
+									"        });",
+									"    }",
+									"} else if (pm.response.code >= 400 && pm.response.code < 500) {",
+									"    // Handle client error responses (4xx)",
+									"    console.log(\"\\n========== CLIENT ERROR DETECTED ==========\");",
+									"    ",
+									"    pm.test(\"Response has valid JSON body\", function () {",
+									"        pm.response.to.be.json;",
+									"    });",
+									"    ",
+									"    pm.test(\"Error response contains message\", function () {",
+									"        pm.expect(jsonData).to.have.property(\"message\");",
+									"        console.log(\"Error Message:\", jsonData.message);",
+									"    });",
+									"    ",
+									"    console.log(\"⚠️ Request failed with status \" + pm.response.code);",
+									"    console.log(\"This indicates a client-side issue (bad request, validation error, etc.)\");",
+									"}",
+									"",
+									"// ============================================",
+									"// 5. SUMMARY LOG",
+									"// ============================================",
+									"console.log(\"\\n========== TEST EXECUTION SUMMARY ==========\");",
+									"console.log(\"Request:\", pm.request.method, pm.request.url.toString());",
+									"console.log(\"Response Status:\", pm.response.code, pm.response.status);",
+									"console.log(\"Response Time:\", pm.response.responseTime + \"ms\");",
+									"console.log(\"Test completed at:\", new Date().toISOString());",
+									"console.log(\"============================================\");"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Raj\",\r\n  \"email\": \"raj@mail.com\",\r\n  \"phone\": \"448-903-0092\",\r\n  \"specialty\": \"Engine Repair\",\r\n  \"salary\": 63500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/mechanics/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"mechanics",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Specific Mechanic",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Leroy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/mechanics/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"mechanics",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Mechanic",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\": \"Jose\",\r\n\"specialty\": \"transmission repair\"\r\n\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/mechanics/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"mechanics",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service_Ticket",
+			"item": [
+				{
+					"name": "New Service Tiket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"Oil change and filter check\",\r\n  \"status\": \"open\",\r\n  \"mechanic_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/service-tickets/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"service-tickets",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Service Tickets",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"Oil change and filter check\",\r\n  \"status\": \"closed\",\r\n  \"mechanic_id\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000//service-tickets/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"",
+								"service-tickets",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete ticket",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"Oil change and filter check\",\r\n  \"status\": \"closed\",\r\n  \"mechanic_id\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000//service-tickets/5",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"",
+								"service-tickets",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "New Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Penny\",\r\n  \"email\": \"penny@mail.com\",\r\n  \"password\": \"testing65\",\r\n  \"phone\": \"448-483-3648\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/customers/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Customers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Penny\",\r\n  \"email\": \"penny@mail.com\",\r\n  \"password\": \"testing65\",\r\n  \"phone\": \"448-483-3648\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/customers/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update customer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"phone\": \"788-483-3648\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/customers/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customers",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"{\r",
+									"    \r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NjU2NTAzNTUsImlhdCI6MTc2NTY0Njc1NSwic3ViIjoiNCJ9.r0BKZzbC3vU-WJKtoDZiyBckTWXOBki3nV0mDSCQr_Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"jordan@mail.com\",\r\n  \"password\": \"test9865\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/customers/me",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customers",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mechanic_Service_Ticket",
+			"item": [
+				{
+					"name": "all service tickets",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"Tune up\",\r\n  \"status\": \"open\",\r\n  \"mechanic_id\": 1,\r\n  \"service_ticket_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/service-tickets/mechanic-service-ticket/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"service-tickets",
+								"mechanic-service-ticket",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Service Ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"Tire Rotation\",\r\n  \"status\": \"open\",\r\n  \"mechanic_id\": 2,\r\n  \"service_ticket_id\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/service-tickets/mechanic-service-ticket/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"service-tickets",
+								"mechanic-service-ticket",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "last_error_code",
+			"value": ""
+		},
+		{
+			"key": "last_error_message",
+			"value": ""
+		},
+		{
+			"key": "last_error_timestamp",
+			"value": ""
+		}
+	]
+}
