@@ -47,9 +47,7 @@ jobs:
           pwd
           ls -R
       - name: Initialize database tables
-        run: |
-          export PYTHONPATH="${PYTHONPATH}:$(pwd)"
-          python app/create_tables.py
+        run: export PYTHONPATH="${PYTHONPATH}:$(pwd)" && python app/create_tables.py
       - name: Run tests
         run: python -m unittest discover -s tests -p "test_*.py"
 
