@@ -16,18 +16,25 @@ jobs:
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
       - name: Wait for MySQL to be ready
         run: |
           for i in {1..30}; do
@@ -38,20 +45,26 @@ jobs:
             sleep 2
           done
           mysql -h 127.0.0.1 -uroot -pTrinity2010 -e 'SHOW DATABASES;'
+
       - name: List app directory
         run: ls app
+
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
-            - name: Show working directory and files
+
+      - name: Show working directory and files
         run: |
           pwd
           ls -R
 
       - name: Initialize database tables
-        run: export PYTHONPATH="${PYTHONPATH}:$(pwd)" && python app/create_tables.py
+        run: python app/create_tables.py
+        - name: Initialize database tables
+          run: export PYTHONPATH="${PYTHONPATH}:$(pwd)" && python $(find . -type f -path "*/app/create_tables.py" | head -n 1)
 
       - name: Run tests
         run: python -m unittest discover -s tests -p "test_*.py"
+
 
 
   deploy:
