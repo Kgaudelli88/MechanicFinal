@@ -42,10 +42,14 @@ jobs:
         run: ls app
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
+      - name: Debug: Show directory structure
+        run: |
+          pwd
+          ls -R
       - name: Initialize database tables
         run: |
           export PYTHONPATH="${PYTHONPATH}:$(pwd)"
-          python app/create_tables.py
+          python $(find . -type f -path "*/app/create_tables.py" | head -n 1)
       - name: Run tests
         run: python -m unittest discover -s tests -p "test_*.py"
 
