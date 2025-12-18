@@ -52,10 +52,7 @@ jobs:
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
 
-      - name: Debug: Show working directory and files
-        run: |
-          pwd
-          ls -R
+      # Debug step removed
       - name: Initialize database tables
         working-directory: ${{ github.workspace }}
         run: export PYTHONPATH="${PYTHONPATH}:$(pwd)" && python -m app.create_tables
