@@ -16,6 +16,138 @@ tags:
     description: Mechanic-service ticket assignments
 
 paths:
+  /mechanic/login:
+    post:
+      tags: [Mechanics]
+      summary: Mechanic login
+      description: Returns a JWT token for mechanic authentication
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: JWT token
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+              message:
+                type: string
+
+  /mechanic/:
+    post:
+      tags: [Mechanics]
+      summary: Register a new mechanic
+      description: Create a new mechanic account
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/MechanicPayload"
+      responses:
+        201:
+          description: Mechanic created
+          schema:
+            $ref: "#/definitions/MechanicResponse"
+    get:
+      tags: [Mechanics]
+      summary: Get all mechanics
+      description: Returns a paginated list of mechanics
+      responses:
+        200:
+          description: List of mechanics
+          schema:
+            type: object
+            properties:
+              mechanics:
+                type: array
+                items:
+                  $ref: "#/definitions/MechanicResponse"
+              total:
+                type: integer
+              page:
+                type: integer
+              pages:
+                type: integer
+
+  /mechanic/by-ticket-count:
+    get:
+      tags: [Mechanics]
+      summary: Get mechanics by ticket count
+      description: Returns mechanics ordered by number of tickets worked on
+      responses:
+        200:
+          description: List of mechanics
+          schema:
+            type: object
+            properties:
+              mechanics:
+                type: array
+                items:
+                  $ref: "#/definitions/MechanicResponse"
+              total:
+                type: integer
+              page:
+                type: integer
+              pages:
+                type: integer
+
+  /mechanic/{id}:
+    get:
+      tags: [Mechanics]
+      summary: Get a mechanic by ID
+      description: Returns a single mechanic
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Mechanic details
+          schema:
+            $ref: "#/definitions/MechanicResponse"
+    put:
+      tags: [Mechanics]
+      summary: Update a mechanic
+      description: Update mechanic details by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/MechanicPayload"
+      responses:
+        200:
+          description: Mechanic updated
+          schema:
+            $ref: "#/definitions/MechanicResponse"
+    delete:
+      tags: [Mechanics]
+      summary: Delete a mechanic
+      description: Delete mechanic by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Mechanic deleted
   /customers/:
     post:
       tags: [Customers]
@@ -122,18 +254,26 @@ paths:
             description: Customer updated
             schema:
               $ref: "#/definitions/CustomerResponse"
-      delete:
-        tags: [Customers]
-        summary: Delete a customer
-        description: Delete customer by ID
-        parameters:
-          - name: id
-            in: path
-            required: true
-            type: integer
-        responses:
-          204:
-            description: Customer deleted
+
+      /customers/me:
+        delete:
+          tags: [Customers]
+          summary: Delete logged-in customer
+          description: Delete the currently authenticated customer (requires JWT token)
+          parameters:
+            - name: Authorization
+              in: header
+              required: true
+              type: string
+              description: Bearer JWT token
+          responses:
+            200:
+              description: Customer deleted
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
 
   /service-tickets/mechanic-service-ticket/:
     post:
