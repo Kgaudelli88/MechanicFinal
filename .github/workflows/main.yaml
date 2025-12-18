@@ -43,7 +43,7 @@ jobs:
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
       - name: Initialize database tables
-        run: python create_tables.py
+        run: python -m app.create_tables
       - name: Run tests
         run: python -m unittest discover -s tests -p "test_*.py"
 
