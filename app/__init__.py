@@ -54,7 +54,13 @@ def create_app():
                 "model_filter": lambda tag: True,  # all models
             }
         ],
-        "headers": []
+        "headers": [],
+        "static_url_path": "/flasgger_static",
+        "swagger_ui": True,
+        "swagger_ui_bundle_js": "/flasgger_static/swagger-ui-bundle.js",
+        "swagger_ui_standalone_preset_js": "/flasgger_static/swagger-ui-standalone-preset.js",
+        "swagger_ui_css": "/flasgger_static/swagger-ui.css",
+        "jquery_js": "/flasgger_static/lib/jquery.min.js"
     }
     if "headers" not in swagger_config or swagger_config["headers"] is None:
         swagger_config["headers"] = []
