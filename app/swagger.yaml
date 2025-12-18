@@ -6,7 +6,15 @@ info:
 host: localhost:5000
 basePath: /
 tags:
-
+  - name: Customers
+    description: Customer management
+  - name: Mechanics
+    description: Mechanic management
+  - name: ServiceTickets
+    description: Service ticket management
+  - name: Assignments
+    description: Mechanic-service ticket assignments
+paths:
   /customers/:
     post:
       tags: [Customers]
@@ -42,10 +50,27 @@ tags:
           in: query
           required: false
           type: integer
+      responses:
+        200:
+          description: List of customers
+          schema:
+            type: object
+            properties:
+              customers:
+                type: array
+                items:
+                  $ref: "#/definitions/CustomerResponse"
+              total:
+                type: integer
+              page:
+                type: integer
+              pages:
+                type: integer
+  /mechanic/by-ticket-count:
     get:
       tags: [Mechanics]
-      summary: Get all mechanics
-      description: Returns a paginated list of mechanics
+      summary: Get mechanics by ticket count
+      description: Returns mechanics ordered by number of tickets worked on
       responses:
         200:
           description: List of mechanics
@@ -62,22 +87,6 @@ tags:
                 type: integer
               pages:
                 type: integer
-
-  /mechanic/by-ticket-count:
-    get:
-      tags: [Mechanics]
-      summary: Get mechanics by ticket count
-      description: Returns mechanics ordered by number of tickets worked on
-      responses:
-        200:
-          description: List of mechanics
-          schema:
-            type: object
-            properties:
-              mechanics:
-                type: array
-                items:
-                  $ref: "#/definitions/MechanicResponse"
               total:
                 type: integer
               page:
