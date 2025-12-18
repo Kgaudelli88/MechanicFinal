@@ -57,6 +57,7 @@ jobs:
           pwd
           ls -R
       - name: Initialize database tables
+        working-directory: ${{ github.workspace }}
         run: export PYTHONPATH="${PYTHONPATH}:$(pwd)" && python -m app.create_tables
 
       - name: Run tests
