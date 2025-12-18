@@ -101,6 +101,7 @@ paths:
     get:
       tags: [ServiceTickets]
       summary: Get all service tickets
+
     /customers/{id}:
       put:
         tags: [Customers]
@@ -133,23 +134,6 @@ paths:
         responses:
           204:
             description: Customer deleted
-      description: Returns a paginated list of service tickets
-      responses:
-        200:
-          description: List of service tickets
-          schema:
-            type: object
-            properties:
-              service_tickets:
-                type: array
-                items:
-                  $ref: "#/definitions/ServiceTicketResponse"
-              total:
-                type: integer
-              page:
-                type: integer
-              pages:
-                type: integer
 
   /service-tickets/mechanic-service-ticket/:
     post:
