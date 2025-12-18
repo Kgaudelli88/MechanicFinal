@@ -35,6 +35,9 @@ def create_app():
 
     app = Flask(__name__)
     setup_logging(app)
+    # Enable CORS for all routes
+    from flask_cors import CORS
+    CORS(app)
     app.config.from_object(get_config())
     db.init_app(app)
     if limiter:
@@ -64,7 +67,8 @@ def create_app():
     }
     if "headers" not in swagger_config or swagger_config["headers"] is None:
         swagger_config["headers"] = []
-    Swagger(app, config=swagger_config)
+    # Initialize Swagger with config and external YAML template
+    swagger = Swagger(app, config=swagger_config, template_file="swagger.yaml")
 
     # Ensure models are registered with SQLAlchemy before using them
     import mechanic.models

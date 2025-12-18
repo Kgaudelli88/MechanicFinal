@@ -49,7 +49,7 @@ def login():
     }
     token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
-    return jsonify({'token': token})
+    return jsonify({'token': token, 'message': 'Login successful'})
 
 # Create a new customer (register)
 @customer_bp.route('/', methods=['POST'])

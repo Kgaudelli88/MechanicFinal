@@ -1,12 +1,10 @@
-openapi: 3.0.0
+swagger: "2.0"
 info:
   title: Mechanic Shop API
   version: 1.0.0
   description: API documentation for the Mechanic Shop project
-
-servers:
-  - url: http://localhost:5000
-
+host: localhost:5000
+basePath: /
 tags:
   - name: Customers
     description: Customer management
@@ -23,204 +21,241 @@ paths:
       tags: [Customers]
       summary: Register a new customer
       description: Create a new customer account
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CustomerPayload"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/CustomerPayload"
       responses:
-        "201":
+        201:
           description: Customer created
-          content:
+          schema:
+            $ref: "#/definitions/CustomerResponse"
+          examples:
             application/json:
-              schema:
-                $ref: "#/components/schemas/CustomerResponse"
-              example:
-                id: 1
-                name: Jordan
-                email: jordan@mail.com
-                phone: 448-483-2248
+              id: 1
+              name: Jordan
+              email: jordan@mail.com
+              phone: 448-483-2248
     get:
       tags: [Customers]
       summary: Get all customers
       description: Returns a paginated list of customers
       responses:
-        "200":
+        200:
           description: List of customers
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  customers:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/CustomerResponse"
-                  total:
-                    type: integer
-                  page:
-                    type: integer
-                  pages:
-                    type: integer
+          schema:
+            type: object
+            properties:
+              customers:
+                type: array
+                items:
+                  $ref: "#/definitions/CustomerResponse"
+              total:
+                type: integer
+              page:
+                type: integer
+              pages:
+                type: integer
 
   /customers/login:
     post:
       tags: [Customers]
       summary: Customer login
       description: Returns a JWT token
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/LoginPayload"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/LoginPayload"
       responses:
-        "200":
+        200:
           description: JWT token
-          content:
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+          examples:
             application/json:
-              schema:
-                type: object
-                properties:
-                  token:
-                    type: string
-              example:
-                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 
   /service-tickets/:
     post:
       tags: [ServiceTickets]
       summary: Create a new service ticket
       description: Create a new service ticket for a customer
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ServiceTicketPayload"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/ServiceTicketPayload"
       responses:
-        "201":
+        201:
           description: Service ticket created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ServiceTicketResponse"
+          schema:
+            $ref: "#/definitions/ServiceTicketResponse"
     get:
       tags: [ServiceTickets]
       summary: Get all service tickets
       description: Returns a paginated list of service tickets
       responses:
-        "200":
+        200:
           description: List of service tickets
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  service_tickets:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/ServiceTicketResponse"
-                  total:
-                    type: integer
-                  page:
-                    type: integer
-                  pages:
-                    type: integer
+          schema:
+            type: object
+            properties:
+              service_tickets:
+                type: array
+                items:
+                  $ref: "#/definitions/ServiceTicketResponse"
+              total:
+                type: integer
+              page:
+                type: integer
+              pages:
+                type: integer
 
   /service-tickets/mechanic-service-ticket/:
     post:
       tags: [Assignments]
       summary: Assign mechanic to service ticket
       description: Assign a mechanic to a service ticket with a status
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/AssignmentPayload"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/AssignmentPayload"
       responses:
-        "201":
+        201:
           description: Assignment created
-          content:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+          examples:
             application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example:
-                message: Mechanic assigned to service ticket with status.
+              message: Mechanic assigned to service ticket with status.
     get:
       tags: [Assignments]
       summary: Get all assignments
       description: Returns all mechanic-service ticket assignments
       responses:
-        "200":
+        200:
           description: List of assignments
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/AssignmentResponse"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/AssignmentResponse"
 
-components:
-  schemas:
-    CustomerPayload:
-      type: object
-      required: [name, email, password, phone]
-      properties:
-        name: { type: string }
-        email: { type: string }
-        password: { type: string }
-        phone: { type: string }
-    CustomerResponse:
-      type: object
-      properties:
-        id: { type: integer }
-        name: { type: string }
-        email: { type: string }
-        phone: { type: string }
-    LoginPayload:
-      type: object
-      required: [email, password]
-      properties:
-        email: { type: string }
-        password: { type: string }
-    ServiceTicketPayload:
-      type: object
-      required: [VIN, description, make, model, service_date, year, customer_id]
-      properties:
-        VIN: { type: string }
-        description: { type: string }
-        make: { type: string }
-        model: { type: string }
-        service_date: { type: string, format: date }
-        year: { type: integer }
-        customer_id: { type: integer }
-    ServiceTicketResponse:
-      type: object
-      properties:
-        id: { type: integer }
-        VIN: { type: string }
-        year: { type: integer }
-        make: { type: string }
-        model: { type: string }
-        description: { type: string }
-        service_date: { type: string, format: date }
-        customer_id: { type: integer }
-    AssignmentPayload:
-      type: object
-      required: [mechanic_id, service_ticket_id, status]
-      properties:
-        mechanic_id: { type: integer }
-        service_ticket_id: { type: integer }
-        status: { type: string }
-    AssignmentResponse:
-      type: object
-      properties:
-        mechanic_id: { type: integer }
-        service_ticket_id: { type: integer }
-        status: { type: string }
+definitions:
+  CustomerPayload:
+    type: object
+    required:
+      - name
+      - email
+      - password
+      - phone
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+  CustomerResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+  LoginPayload:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+  ServiceTicketPayload:
+    type: object
+    required:
+      - VIN
+      - description
+      - make
+      - model
+      - service_date
+      - year
+      - customer_id
+    properties:
+      VIN:
+        type: string
+      description:
+        type: string
+      make:
+        type: string
+      model:
+        type: string
+      service_date:
+        type: string
+        format: date
+      year:
+        type: integer
+      customer_id:
+        type: integer
+  ServiceTicketResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+      VIN:
+        type: string
+      year:
+        type: integer
+      make:
+        type: string
+      model:
+        type: string
+      description:
+        type: string
+      service_date:
+        type: string
+        format: date
+      customer_id:
+        type: integer
+  AssignmentPayload:
+    type: object
+    required:
+      - mechanic_id
+      - service_ticket_id
+      - status
+    properties:
+      mechanic_id:
+        type: integer
+      service_ticket_id:
+        type: integer
+      status:
+        type: string
+  AssignmentResponse:
+    type: object
+    properties:
+      mechanic_id:
+        type: integer
+      service_ticket_id:
+        type: integer
+      status:
+        type: string

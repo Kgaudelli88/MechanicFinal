@@ -61,7 +61,7 @@ def mechanic_login():
     if not mechanic or not check_password_hash(mechanic.password, data['password']):
         return error_response('Invalid credentials', 401)
     token = encode_mechanic_token(mechanic.id)
-    return jsonify({'token': token})
+    return jsonify({'token': token, 'message': 'Login successful'})
 # Imports
 from flask import request, jsonify
 from . import mechanic_bp
