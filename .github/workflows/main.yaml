@@ -40,6 +40,8 @@ jobs:
           mysql -h 127.0.0.1 -uroot -pTrinity2010 -e 'SHOW DATABASES;'
       - name: List app directory
         run: ls app
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
       - name: Initialize database tables
         run: python create_tables.py
       - name: Run tests
