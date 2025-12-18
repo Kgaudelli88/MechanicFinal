@@ -45,7 +45,7 @@ jobs:
       - name: Initialize database tables
         run: |
           export PYTHONPATH="${PYTHONPATH}:$(pwd)"
-          python3 -m app.create_tables
+          python app/create_tables.py
       - name: Run tests
         run: python -m unittest discover -s tests -p "test_*.py"
 
