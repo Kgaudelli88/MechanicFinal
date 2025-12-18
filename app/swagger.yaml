@@ -37,11 +37,11 @@ tags:
         - name: page
           in: query
           required: false
-
-        201:
-          description: Mechanic created
-          schema:
-            $ref: "#/definitions/MechanicResponse"
+          type: integer
+        - name: per_page
+          in: query
+          required: false
+          type: integer
     get:
       tags: [Mechanics]
       summary: Get all mechanics
