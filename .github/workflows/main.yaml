@@ -46,7 +46,6 @@ jobs:
         run: |
           export PYTHONPATH="${PYTHONPATH}:$(pwd)"
           python3 -m app.create_tables
-        working-directory: ${{ github.workspace }}
       - name: Run tests
         run: python -m unittest discover -s tests -p "test_*.py"
 
