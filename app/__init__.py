@@ -43,7 +43,8 @@ def create_app():
         cache.init_app(app)
 
     # Add Swagger UI at /api/docs/ with required 'specs' key
-    Swagger(app, config={
+    # Ensure 'headers' key is always present in Swagger config
+    swagger_config = {
         "specs_route": "/api/docs/",
         "specs": [
             {
@@ -52,8 +53,12 @@ def create_app():
                 "rule_filter": lambda rule: True,  # all endpoints
                 "model_filter": lambda tag: True,  # all models
             }
-        ]
-    })
+        ],
+        "headers": []
+    }
+    if "headers" not in swagger_config or swagger_config["headers"] is None:
+        swagger_config["headers"] = []
+    Swagger(app, config=swagger_config)
 
     # Ensure models are registered with SQLAlchemy before using them
     import mechanic.models
