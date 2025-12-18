@@ -1,6 +1,7 @@
 
 
 from app.logging_utils import setup_logging
+from flasgger import Swagger
 from flask import Flask
 from app.db import db
 from mechanic import mechanic_bp
@@ -31,6 +32,7 @@ def get_config():
 
 
 def create_app():
+
     app = Flask(__name__)
     setup_logging(app)
     app.config.from_object(get_config())
@@ -39,6 +41,19 @@ def create_app():
         limiter.init_app(app)
     if cache:
         cache.init_app(app)
+
+    # Add Swagger UI at /api/docs/ with required 'specs' key
+    Swagger(app, config={
+        "specs_route": "/api/docs/",
+        "specs": [
+            {
+                "endpoint": 'apispec_1',
+                "route": '/api/docs/apispec_1.json',
+                "rule_filter": lambda rule: True,  # all endpoints
+                "model_filter": lambda tag: True,  # all models
+            }
+        ]
+    })
 
     # Ensure models are registered with SQLAlchemy before using them
     import mechanic.models
