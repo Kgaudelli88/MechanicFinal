@@ -47,6 +47,7 @@ jobs:
           pwd
           ls -R
       - name: Initialize database tables
+        shell: bash
         run: |
           export PYTHONPATH="${PYTHONPATH}:$(pwd)"
           python $(find . -type f -path "*/app/create_tables.py" | head -n 1)
