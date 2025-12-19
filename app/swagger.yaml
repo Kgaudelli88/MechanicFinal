@@ -89,23 +89,6 @@
       responses:
         204:
           description: Customer deleted
----
-swagger: "2.0"
-info:
-  title: Mechanic Shop API
-  version: 1.0.0
-  description: API documentation for the Mechanic Shop project
-host: mechanicfinal.onrender.com
-basePath: /
-tags:
-  - name: Customers
-    description: Customer management
-  - name: Mechanics
-    description: Mechanic management
-  - name: ServiceTickets
-    description: Service ticket management
-  - name: Assignments
-    description: Mechanic-service ticket assignments
 paths:
   /mechanics/:
     post:
