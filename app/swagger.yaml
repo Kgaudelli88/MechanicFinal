@@ -76,15 +76,18 @@ paths:
           description: Customer details
           schema:
             $ref: "#/definitions/CustomerResponse"
+
+  /customers/me:
     put:
       tags: [Customers]
-      summary: Update a customer
-      description: Update customer details by ID
+      summary: Update logged-in customer
+      description: Update the currently authenticated customer (requires JWT token)
       parameters:
-        - name: id
-          in: path
+        - name: Authorization
+          in: header
           required: true
-          type: integer
+          type: string
+          description: Bearer JWT token
         - in: body
           name: body
           required: true
