@@ -224,7 +224,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/definitions/MechanicResponse"
-*** End Patch
+  # Removed erroneous patch marker
           type: integer
       responses:
         204:
