@@ -1,4 +1,3 @@
-        - in: body
           name: body
           required: true
           schema:
@@ -27,6 +26,8 @@
             properties:
               message:
                 type: string
+        ---
+        swagger: "2.0"
   /mechanics/:
     post:
       tags: [Mechanics]
