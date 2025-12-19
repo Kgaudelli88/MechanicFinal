@@ -89,7 +89,6 @@
       responses:
         204:
           description: Customer deleted
-paths:
   /mechanics/:
     post:
       tags: [Mechanics]
