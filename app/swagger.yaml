@@ -312,8 +312,35 @@ paths:
           schema:
             $ref: "#/definitions/ServiceTicketResponse"
     get:
-      tags: [ServiceTickets]
-      summary: Get all service tickets
+        tags: [ServiceTickets]
+        summary: Get all service tickets
+        description: Returns a paginated list of service tickets, optionally filtered by status, customer, or mechanic
+        parameters:
+          - name: page
+            in: query
+            required: false
+            type: integer
+            description: Page number for pagination
+          - name: per_page
+            in: query
+            required: false
+            type: integer
+            description: Number of results per page
+          - name: status
+            in: query
+            required: false
+            type: string
+            description: Filter by service ticket status
+          - name: customer_id
+            in: query
+            required: false
+            type: integer
+            description: Filter by customer ID
+          - name: mechanic_id
+            in: query
+            required: false
+            type: integer
+            description: Filter by mechanic ID
     /service-tickets/{id}:
       get:
         tags: [ServiceTickets]
