@@ -16,6 +16,11 @@ tags:
   - name: Assignments
     description: Mechanic-service ticket assignments
 paths:
+  /mechanics/:
+    post:
+      tags: [Mechanics]
+      summary: Register a new mechanic
+      description: Create a new mechanic account
       parameters:
         - in: body
           name: body
