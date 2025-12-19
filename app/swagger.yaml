@@ -224,40 +224,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/definitions/MechanicResponse"
-              total:
-                type: integer
-              page:
-                type: integer
-              pages:
-                type: integer
-              total:
-                type: integer
-              page:
-                type: integer
-              pages:
-                type: integer
-
-          in: path
-          required: true
-          type: integer
-        - in: body
-          name: body
-          required: true
-          schema:
-            $ref: "#/definitions/MechanicPayload"
-      responses:
-        200:
-          description: Mechanic updated
-          schema:
-            $ref: "#/definitions/MechanicResponse"
-    delete:
-      tags: [Mechanics]
-      summary: Delete a mechanic
-      description: Delete mechanic by ID
-      parameters:
-        - name: id
-          in: path
-          required: true
+*** End Patch
           type: integer
       responses:
         204:
