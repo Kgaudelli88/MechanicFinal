@@ -237,27 +237,6 @@ paths:
               pages:
                 type: integer
 
-  /mechanic/{id}:
-    get:
-      tags: [Mechanics]
-      summary: Get a mechanic by ID
-      description: Returns a single mechanic
-      parameters:
-        - name: id
-          in: path
-          required: true
-          type: integer
-      responses:
-        200:
-          description: Mechanic details
-          schema:
-            $ref: "#/definitions/MechanicResponse"
-    put:
-      tags: [Mechanics]
-      summary: Update a mechanic
-      description: Update mechanic details by ID
-      parameters:
-        - name: id
           in: path
           required: true
           type: integer
