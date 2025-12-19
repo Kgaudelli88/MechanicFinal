@@ -314,6 +314,21 @@ paths:
     get:
       tags: [ServiceTickets]
       summary: Get all service tickets
+    /service-tickets/{id}:
+      get:
+        tags: [ServiceTickets]
+        summary: Get a service ticket by ID
+        description: Returns a single service ticket
+        parameters:
+          - name: id
+            in: path
+            required: true
+            type: integer
+        responses:
+          200:
+            description: Service ticket details
+            schema:
+              $ref: "#/definitions/ServiceTicketResponse"
 
     /customers/{id}:
       put:
