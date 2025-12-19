@@ -119,7 +119,7 @@ paths:
             properties:
               message:
                 type: string
-  /mechanic/:
+  /mechanics/:
     post:
       tags: [Mechanics]
       summary: Register a new mechanic
@@ -164,7 +164,7 @@ paths:
                 type: integer
               pages:
                 type: integer
-  /mechanic/{id}:
+  /mechanics/{id}:
     get:
       tags: [Mechanics]
       summary: Get a mechanic by ID
@@ -210,7 +210,7 @@ paths:
       responses:
         204:
           description: Mechanic deleted
-  /mechanic/by-ticket-count:
+  /mechanics/by-ticket-count:
     get:
       tags: [Mechanics]
       summary: Get mechanics by ticket count
