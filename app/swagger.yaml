@@ -2,8 +2,6 @@
           required: true
           schema:
             $ref: "#/definitions/CustomerPayload"
----
-swagger: "2.0"
 info:
   title: Mechanic Shop API
   version: 1.0.0
