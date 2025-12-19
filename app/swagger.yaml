@@ -66,6 +66,150 @@ paths:
                 type: integer
               pages:
                 type: integer
+  /customers/{id}:
+    get:
+      tags: [Customers]
+      summary: Get a customer by ID
+      description: Returns a single customer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Customer details
+          schema:
+            $ref: "#/definitions/CustomerResponse"
+    put:
+      tags: [Customers]
+      summary: Update a customer
+      description: Update customer details by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/CustomerPayload"
+      responses:
+        200:
+          description: Customer updated
+          schema:
+            $ref: "#/definitions/CustomerResponse"
+  /customers/me:
+    delete:
+      tags: [Customers]
+      summary: Delete logged-in customer
+      description: Delete the currently authenticated customer (requires JWT token)
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: Bearer JWT token
+      responses:
+        200:
+          description: Customer deleted
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  /mechanic/:
+    post:
+      tags: [Mechanics]
+      summary: Register a new mechanic
+      description: Create a new mechanic account
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/MechanicPayload"
+      responses:
+        201:
+          description: Mechanic created
+          schema:
+            $ref: "#/definitions/MechanicResponse"
+    get:
+      tags: [Mechanics]
+      summary: Get all mechanics
+      description: Returns a paginated list of mechanics
+      parameters:
+        - name: page
+          in: query
+          required: false
+          type: integer
+        - name: per_page
+          in: query
+          required: false
+          type: integer
+      responses:
+        200:
+          description: List of mechanics
+          schema:
+            type: object
+            properties:
+              mechanics:
+                type: array
+                items:
+                  $ref: "#/definitions/MechanicResponse"
+              total:
+                type: integer
+              page:
+                type: integer
+              pages:
+                type: integer
+  /mechanic/{id}:
+    get:
+      tags: [Mechanics]
+      summary: Get a mechanic by ID
+      description: Returns a single mechanic
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Mechanic details
+          schema:
+            $ref: "#/definitions/MechanicResponse"
+    put:
+      tags: [Mechanics]
+      summary: Update a mechanic
+      description: Update mechanic details by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/MechanicPayload"
+      responses:
+        200:
+          description: Mechanic updated
+          schema:
+            $ref: "#/definitions/MechanicResponse"
+    delete:
+      tags: [Mechanics]
+      summary: Delete a mechanic
+      description: Delete mechanic by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Mechanic deleted
   /mechanic/by-ticket-count:
     get:
       tags: [Mechanics]
