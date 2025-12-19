@@ -95,18 +95,26 @@ paths:
           description: Customer updated
           schema:
             $ref: "#/definitions/CustomerResponse"
+
+  /customers/me:
     delete:
       tags: [Customers]
-      summary: Delete a customer
-      description: Delete customer by ID
+      summary: Delete logged-in customer
+      description: Delete the currently authenticated customer (requires JWT token)
       parameters:
-        - name: id
-          in: path
+        - name: Authorization
+          in: header
           required: true
-          type: integer
+          type: string
+          description: Bearer JWT token
       responses:
-        204:
+        200:
           description: Customer deleted
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
   /mechanics/:
     post:
       tags: [Mechanics]
