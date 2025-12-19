@@ -77,27 +77,7 @@ paths:
           schema:
             $ref: "#/definitions/CustomerResponse"
 
-  /customers/me:
-        put:
-          tags: [Customers]
-          summary: Update logged-in customer
-          description: Update the currently authenticated customer's details (requires JWT token)
-          parameters:
-            - name: Authorization
-              in: header
-              required: true
-              type: string
-              description: Bearer JWT token
-            - in: body
-              name: body
-              required: true
-              schema:
-                $ref: "#/definitions/CustomerPayload"
-          responses:
-            200:
-              description: Customer updated
-              schema:
-                $ref: "#/definitions/CustomerResponse"
+  # Removed duplicate and mis-indented put block under /customers/me
     put:
       tags: [Customers]
       summary: Update logged-in customer
